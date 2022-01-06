@@ -6,8 +6,6 @@
  * NOTE : Please do not use loops! All tasks can be implemented using standard Array methods  *
  *                                                                                            *
  ******************************************************************************************** */
-
-
 /**
  * Returns an index of the specified element in array or -1 if element is not found
  *

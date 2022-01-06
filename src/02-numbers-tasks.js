@@ -6,8 +6,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math     *
  *                                                                                           *
  ******************************************************************************************* */
-
-
 /**
  * Returns an area of a rectangle given by width and height.
  *
@@ -22,7 +20,6 @@
 function getRectangleArea(/* width, height */) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Returns a circumference of circle given by radius.
@@ -90,7 +87,6 @@ function getLinearEquationRoot(/* a, b */) {
   throw new Error('Not implemented');
 }
 
-
 /**
  * Returns an angle (in radians) between two vectors given by xi and yi,
  * coordinates in Cartesian plane.
@@ -129,7 +125,6 @@ function getLastDigit(/* value */) {
   throw new Error('Not implemented');
 }
 
-
 /**
  * Returns a number by given string representation.
  *
@@ -161,7 +156,6 @@ function parseNumberFromString(/* value */) {
 function getParallelepipedDiagonal(/* a, b, c */) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Returns the number rounded to specified power of 10.
