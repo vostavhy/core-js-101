@@ -234,8 +234,30 @@ function getRectangleString(width, height) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const lettersUp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const lettersLow = lettersUp.toLowerCase();
+  let result = '';
+
+  function getNewLetter(letter) {
+    const indexUp = lettersUp.indexOf(letter);
+    const indexLow = lettersLow.indexOf(letter);
+    if (indexUp !== -1) {
+      if (indexUp < 13) return lettersUp[indexUp + 13];
+      return lettersUp[indexUp - 13];
+    }
+    if (indexLow !== -1) {
+      if (indexLow < 13) return lettersLow[indexLow + 13];
+      return lettersLow[indexLow - 13];
+    }
+    return letter;
+  }
+
+  for (let i = 0; i < str.length; i += 1) {
+    result += getNewLetter(str[i]);
+  }
+
+  return result;
 }
 
 /**
@@ -251,8 +273,9 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  if (typeof value === 'string' || value instanceof String) return true;
+  return false;
 }
 
 /**
@@ -279,8 +302,63 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const deck = [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ];
+
+  return deck.indexOf(value);
 }
 
 module.exports = {
