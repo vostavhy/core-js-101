@@ -22,9 +22,7 @@
  *
  */
 function getComposition(f, g) {
-  return function (x) {
-    return f(g(x));
-  };
+  return (x) => f(g(x));
 }
 
 /**
@@ -80,7 +78,7 @@ function getPolynom() {
  */
 function memoize(func) {
   let result;
-  return function () {
+  return () => {
     if (result === undefined) result = func();
     return result;
   };
@@ -111,7 +109,7 @@ function retry(func, attempts) {
         result = func();
         return result;
       } catch (err) {
-        console.log(err);
+        // asdfasdf
       }
     }
     return undefined;
