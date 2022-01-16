@@ -153,8 +153,8 @@ function doRectanglesOverlap(rect1, rect2) {
  */
 function isInsideCircle(circle, point) {
   if (
-    ((point.x - circle.center.x) * (point.x - circle.center.x)
-    + (point.y - circle.center.y) * (point.y - circle.center.y)) < (circle.radius * circle.radius)
+    (point.x - circle.center.x) * (point.x - circle.center.x)
+    + (point.y - circle.center.y) * (point.y - circle.center.y) < circle.radius * circle.radius
   ) return true;
   return false;
 }
@@ -209,8 +209,15 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let a1 = a;
+  let b1 = b;
+  if (a1 > b1) [a1, b1] = [b1, a1];
+  let leftComma = '(';
+  let rightComma = ')';
+  if (isStartIncluded) leftComma = '[';
+  if (isEndIncluded) rightComma = ']';
+  return `${leftComma}${a1}, ${b1}${rightComma}`;
 }
 
 /**
@@ -225,8 +232,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 /**
@@ -241,8 +248,9 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  const str = String(num);
+  return Number(str.split('').reverse().join(''));
 }
 
 /**
@@ -265,8 +273,17 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const arr = String(ccn).split('').map(Number);
+  for (let i = arr.length - 2; i >= 0; i -= 2) {
+    let digit = arr[i] * 2;
+    if (digit > 9) {
+      digit -= 9;
+    }
+    arr[i] = digit;
+  }
+  const sum = arr.reduce((a, b) => a + b);
+  return (sum % 10) === 0;
 }
 
 /**
