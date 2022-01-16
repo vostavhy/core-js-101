@@ -300,8 +300,11 @@ function isCreditCardNumber(ccn) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const arr = String(num).split('').map(Number);
+  if (arr.length === 1) return arr[0];
+  const sum = arr.reduce((a, b) => a + b);
+  return getDigitalRoot(sum);
 }
 
 /**
@@ -325,8 +328,32 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const arr = [];
+  const leftCommas = '{[(<';
+  for (let i = 0; i < str.length; i += 1) {
+    if (leftCommas.includes(str[i])) {
+      arr.push(str[i]);
+    } else {
+      if (str[i] === ']') {
+        const char = arr.pop();
+        if (char !== '[') return false;
+      }
+      if (str[i] === '}') {
+        const char = arr.pop();
+        if (char !== '{') return false;
+      }
+      if (str[i] === ')') {
+        const char = arr.pop();
+        if (char !== '(') return false;
+      }
+      if (str[i] === '>') {
+        const char = arr.pop();
+        if (char !== '<') return false;
+      }
+    }
+  }
+  return arr.length === 0;
 }
 
 /**
@@ -365,8 +392,19 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const paths = pathes.map((a) => a.split('/'));
+  const l = paths[0].length;
+  let result = '';
+
+  for (let i = 0; i < l; i += 1) {
+    const temp = paths[0][i];
+    for (let j = 1; j < paths.length; j += 1) {
+      if (paths[j][i] !== temp) return result;
+      if (paths[j][i] === temp && j === paths.length - 1) result += `${temp}/`;
+    }
+  }
+  return result;
 }
 
 /**
@@ -421,8 +459,41 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  for (let i = 0; i < position.length; i += 1) {
+    let number = 0;
+    for (let j = 0; j < position.length; j += 1) {
+      if (position[i][j] === undefined) break;
+      if ((position[i][j]) !== (position[i][j + 1])) break;
+      number += 1;
+      if (number === 2) return position[i][j];
+    }
+  }
+
+  for (let i = 0; i < position.length; i += 1) {
+    let number = 0;
+    for (let j = 0; j < position.length; j += 1) {
+      if (position[j][i] === undefined) break;
+      if ((position[j][i]) !== (position[j + 1][i])) break;
+      number += 1;
+      if (number === 2) return position[j][i];
+    }
+  }
+
+  let number = 0;
+  for (let i = 0; i < position.length - 1; i += 1) {
+    if (position[i][i] === undefined) break;
+    if ((position[i][i]) !== (position[i + 1][i + 1])) break;
+    number += 1;
+    if (number === 2) return position[i][i];
+  }
+
+  if (position[0][2] === undefined) return undefined;
+
+  if (position[0][2] === position[1][1]
+    && (position[1][1] === position[2][0])) return position[0][2];
+
+  return undefined;
 }
 
 module.exports = {
